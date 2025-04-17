@@ -1,5 +1,6 @@
 #include "client.h"
 
+
 int main(void)
 {
 	/*---------------------------------------------------PARTE 2-------------------------------------------------------------*/
@@ -20,16 +21,30 @@ int main(void)
 	// Escribi: "Hola! Soy un log"
 
 	log_info(logger, "Soy un log");
-	log_destroy(logger);
 
 	/* ---------------- ARCHIVOS DE CONFIGURACION ---------------- */
 
 	config = config_create("cliente.config");
-	
+
+	if (config == NULL)
+	{
+		log_error(logger, "No se pudo inicializar el config!");
+		log_destroy(logger);
+		abort();
+	}
+
 	// Usando el config creado previamente, leemos los valores del config y los 
 	// dejamos en las variables 'ip', 'puerto' y 'valor'
 
+	ip = config_get_string_value(config, "IP");
+	puerto = config_get_string_value(config, "PUERTO");
+	valor = config_get_string_value(config, "CLAVE");
+
 	// Loggeamos el valor de config
+
+	log_info(logger, "Valor de CLAVE: %s", valor);
+	log_destroy(logger);
+	config_destroy(config);
 
 	/* ---------------- LEER DE CONSOLA ---------------- */
 

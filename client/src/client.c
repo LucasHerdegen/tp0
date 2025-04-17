@@ -52,9 +52,11 @@ int main(void)
     while (seguir) {
         linea = readline(">");
 
-        if (linea == NULL || strcmp(linea, "") == 0) {
+        if (linea == NULL || strcmp(linea, "") == 0)
+		{
             seguir = false;
-        } else {
+        } else
+		{
             log_info(logger, "%s", linea);
         }
 
@@ -85,7 +87,9 @@ t_log* iniciar_logger(void)
 {
 	t_log* nuevo_logger;
 
-	return nuevo_logger;
+	nuevo_logger = log_create("tp0.log", "TP0", true, LOG_LEVEL_INFO);
+	log_info(nuevo_logger, "Soy un log");
+	log_destroy(nuevo_logger);
 }
 
 t_config* iniciar_config(void)

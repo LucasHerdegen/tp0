@@ -43,13 +43,23 @@ int main(void)
 	// Loggeamos el valor de config
 
 	log_info(logger, "Valor de CLAVE: %s", valor);
-	log_destroy(logger);
-	config_destroy(config);
 
 	/* ---------------- LEER DE CONSOLA ---------------- */
 
-	leer_consola(logger);
+	char* linea;
+    bool seguir = true;
 
+    while (seguir) {
+        linea = readline(">");
+
+        if (linea == NULL || strcmp(linea, "") == 0) {
+            seguir = false;
+        } else {
+            log_info(logger, "%s", linea);
+        }
+
+        free(linea);
+    }
 	/*---------------------------------------------------PARTE 3-------------------------------------------------------------*/
 
 	// ADVERTENCIA: Antes de continuar, tenemos que asegurarnos que el servidor esté corriendo para poder conectarnos a él
@@ -66,6 +76,9 @@ int main(void)
 
 	/*---------------------------------------------------PARTE 5-------------------------------------------------------------*/
 	// Proximamente
+
+	log_destroy(logger);
+	config_destroy(config);
 }
 
 t_log* iniciar_logger(void)
